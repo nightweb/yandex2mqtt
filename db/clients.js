@@ -1,5 +1,5 @@
 'use strict';
-const config = require('../config');
+const config = require('../conf');
 const clients = config.clients; 
 
 module.exports.findById = (id, done) => {

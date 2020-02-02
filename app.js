@@ -9,19 +9,21 @@ const errorHandler = require('errorhandler');
 const session = require('express-session');
 const passport = require('passport');
 const routes = require('./routes');
-const config = require('./config');
+const config = require('./conf');
 const mqtt = require('mqtt');
 const device = require('./device');
 const fs = require('fs');
 const app = express();
-const https = require('https');
-const privateKey = fs.readFileSync(config.https.privateKey, 'utf8');
-const certificate = fs.readFileSync(config.https.certificate, 'utf8');
+//const http = require('https');
+//const privateKey = fs.readFileSync(config.https.privateKey, 'utf8');
+//const certificate = fs.readFileSync(config.https.certificate, 'utf8');
+/*
 const credentials = {
     key: privateKey,
     cert: certificate
 };
-const httpsServer = https.createServer(credentials, app);
+*/
+//const httpServer = http.createServer(app);
 global.devices = [];
 
 if (config.devices) {
@@ -68,14 +70,23 @@ app.post('/dialog/authorize/decision', routes.oauth2.decision);
 app.post('/oauth/token', routes.oauth2.token);
 app.get('/api/userinfo', routes.user.info);
 app.get('/api/clientinfo', routes.client.info);
+/*
 app.get('/provider/v1.0', routes.user.ping);
 app.get('/provider', routes.user.ping);
 app.get('/provider/v1.0/user/devices', routes.user.devices);
 app.post('/provider/v1.0/user/devices/query', routes.user.query);
 app.post('/provider/v1.0/user/devices/action', routes.user.action);
-app.post('/provider//v1.0/user/unlink', routes.user.unlink);
-httpsServer.listen(config.https.port);
+app.post('/provider/v1.0/user/unlink', routes.user.unlink);
+*/
+app.get('/v1.0', routes.user.ping);
+app.get('/', routes.user.ping);
+app.get('/v1.0/user/devices', routes.user.devices);
+app.post('/v1.0/user/devices/query', routes.user.query);
+app.post('/v1.0/user/devices/action', routes.user.action);
+app.post('/v1.0/user/unlink', routes.user.unlink);
 
+app.listen(config.http.port, config.http.host);
+//console.log(`Running on http://${HOST}:${PORT}`);
 
 function findDevIndex(arr, elem) {
     for (var i = 0; i < arr.length; i++) {

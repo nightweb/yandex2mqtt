@@ -7,10 +7,11 @@ module.exports = {
         password: ''
     },
 
-    https: {
-        privateKey: '/mnt/data/root/node-key2.pem',
-        certificate: '/mnt/data/root/munrexio.crt',
-        port: 443
+    http: {
+        //privateKey: '/mnt/data/root/node-key2.pem',
+        //certificate: '/mnt/data/root/munrexio.crt',
+        host: '0.0.0.0',
+        port: 1800
     },
 
     clients: [
