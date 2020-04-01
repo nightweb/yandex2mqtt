@@ -2,7 +2,7 @@
 
 const tokens = {};
 const loki = require('lokijs');
-global.dbl = new loki('./loki.json', {
+global.dbl = new loki('./storage/loki.json', {
   autoload: true,
   autosave: true,
   autosaveInterval: 5000,
